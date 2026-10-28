@@ -31,10 +31,15 @@ def initialize_database(conn):
     cur.execute("""
     CREATE TABLE IF NOT EXISTS battery_lots (
         id INTEGER PRIMARY KEY,
+
         timestamp TEXT,
+
         source TEXT,
+
         kwh REAL,
+
         remaining_kwh REAL,
+
         cost_per_kwh REAL
     )
     """)
@@ -42,12 +47,30 @@ def initialize_database(conn):
     cur.execute("""
     CREATE TABLE IF NOT EXISTS power_snapshots (
         timestamp TEXT PRIMARY KEY,
+
         solar_w REAL,
         battery_w REAL,
         grid_w REAL,
+
         ev_w REAL,
         load_w REAL,
+
         soc REAL
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS session_energy_breakdown (
+        session_id INTEGER PRIMARY KEY,
+
+        pv_direct_kwh REAL,
+        battery_kwh REAL,
+        grid_direct_kwh REAL,
+
+        actual_cost REAL,
+
+        FOREIGN KEY(session_id)
+        REFERENCES sessions(id)
     )
     """)
 
@@ -87,14 +110,48 @@ def upgrade_database(conn):
         pass
 
     cur.execute("""
+    CREATE TABLE IF NOT EXISTS battery_lots (
+        id INTEGER PRIMARY KEY,
+
+        timestamp TEXT,
+
+        source TEXT,
+
+        kwh REAL,
+
+        remaining_kwh REAL,
+
+        cost_per_kwh REAL
+    )
+    """)
+
+    cur.execute("""
     CREATE TABLE IF NOT EXISTS power_snapshots (
         timestamp TEXT PRIMARY KEY,
+
         solar_w REAL,
         battery_w REAL,
         grid_w REAL,
+
         ev_w REAL,
         load_w REAL,
+
         soc REAL
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS session_energy_breakdown (
+        session_id INTEGER PRIMARY KEY,
+
+        pv_direct_kwh REAL,
+        battery_kwh REAL,
+        grid_direct_kwh REAL,
+
+        actual_cost REAL,
+
+        FOREIGN KEY(session_id)
+        REFERENCES sessions(id)
     )
     """)
 
