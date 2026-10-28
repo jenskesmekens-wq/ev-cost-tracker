@@ -1,0 +1,18 @@
+alphaess:
+  email: "jens.smekens98@gmail.com"
+
+system:
+  sys_sn: "ALD081026030486"
+  charger_sn: "ALP260300132112"
+
+history:
+  start_date: "2026-10-15"
+
+battery:
+  capacity_kwh: 9.3
+
+pricing:
+  json_url: "https://jenskesmekens-wq.github.io/Energieprijs-v4/prices.json"
+
+database:
+  path: "data/charging_history.db"

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+
+data/*.db
+data/*.sqlite
+
+logs/*.log
+
+config.local.yaml
