@@ -24,17 +24,13 @@ def allocate_session_energy(conn):
     for session in sessions:
 
         start_time = datetime.fromisoformat(
-            session["start_time"].replace(
-                " ",
-                "T"
-            )
+            session["start_time"]
+            .replace(" ", "T")
         )
 
         end_time = datetime.fromisoformat(
-            session["end_time"].replace(
-                " ",
-                "T"
-            )
+            session["end_time"]
+            .replace(" ", "T")
         )
 
         cur.execute("""
@@ -47,6 +43,7 @@ def allocate_session_energy(conn):
         pv_kwh = 0.0
         battery_kwh = 0.0
         grid_kwh = 0.0
+        measured_ev = 0.0
 
         for snap in snapshots:
 
@@ -70,9 +67,10 @@ def allocate_session_energy(conn):
             hours = 5 / 60
 
             ev_kwh = (
-                ev_w *
-                hours
+                ev_w * hours
             ) / 1000
+
+            measured_ev += ev_kwh
 
             solar_w = max(
                 0,
@@ -129,6 +127,22 @@ def allocate_session_energy(conn):
                 ev_kwh *
                 grid_ratio
             )
+
+        #
+        # Normaliseren naar
+        # de officiële kWh van de laadpaal
+        #
+
+        if measured_ev > 0:
+
+            factor = (
+                session["kwh"] /
+                measured_ev
+            )
+
+            pv_kwh *= factor
+            battery_kwh *= factor
+            grid_kwh *= factor
 
         cur.execute("""
         INSERT OR REPLACE

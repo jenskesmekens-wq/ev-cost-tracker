@@ -1,0 +1,105 @@
+body{
+    font-family:Arial,sans-serif;
+    margin:20px;
+    background:#f4f6f8;
+    color:#222;
+}
+
+h1{
+    color:#1565c0;
+    text-align:center;
+}
+
+h2{
+    color:#1565c0;
+    margin-top:30px;
+}
+
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+.big{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.green{
+    color:#2e7d32;
+}
+
+.coverage{
+    color:#1565c0;
+}
+
+.main-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+#latest,
+#energy{
+    display:flex;
+    justify-content:center;
+}
+
+.energy-card{
+    text-align:center;
+}
+
+.energy-card svg{
+    display:block;
+    margin:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th{
+    background:#1565c0;
+    color:white;
+}
+
+th,
+td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f5f5f5;
+}
+
+@media(max-width:900px){
+
+    .cards{
+        flex-direction:column;
+    }
+
+    .main-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        width:auto;
+    }
+
+    table{
+        font-size:12px;
+    }
+}
