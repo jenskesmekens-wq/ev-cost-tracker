@@ -34,6 +34,8 @@ def main():
 
     run("import_power_history_full.py")
 
+    run("calculate_market_costs.py")
+
     run("session_energy_allocation.py")
 
     run("calculate_actual_cost_v2.py")
