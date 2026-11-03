@@ -1,8 +1,22 @@
 import sqlite3
 import json
+import yaml
 
 from battery_daily_ratios import (
     get_daily_battery_ratios
+)
+
+
+with open(
+    "config.yaml",
+    encoding="utf-8"
+) as f:
+
+    cfg = yaml.safe_load(f)
+
+
+dashboard_start_date = (
+    cfg["dashboard"]["start_date"]
 )
 
 
@@ -14,47 +28,73 @@ conn.row_factory = sqlite3.Row
 
 cur = conn.cursor()
 
-cur.execute("""
-SELECT
-    MIN(start_time),
-    MAX(start_time)
-FROM sessions
-""")
+cur.execute(
+    """
+    SELECT
+        MIN(start_time),
+        MAX(start_time)
+    FROM sessions
+    WHERE start_time >= ?
+    """,
+    (
+        dashboard_start_date,
+    )
+)
 
 date_row = cur.fetchone()
 
-start_date = date_row[0][:10]
-end_date = date_row[1][:10]
+if (
+    not date_row
+    or
+    not date_row[0]
+):
+    raise RuntimeError(
+        "Geen sessies gevonden "
+        "na dashboard.start_date"
+    )
+
+start_date = (
+    date_row[0][:10]
+)
+
+end_date = (
+    date_row[1][:10]
+)
 
 ratios = get_daily_battery_ratios(
     start_date,
     end_date
 )
 
-cur.execute("""
-SELECT
+rows = cur.execute(
+    """
+    SELECT
 
-    s.start_time,
+        s.start_time,
 
-    s.kwh,
+        s.kwh,
 
-    s.market_cost,
-    s.actual_cost,
-    s.savings,
+        s.market_cost,
+        s.actual_cost,
+        s.savings,
 
-    b.pv_direct_kwh,
-    b.battery_kwh,
-    b.grid_direct_kwh
+        b.pv_direct_kwh,
+        b.battery_kwh,
+        b.grid_direct_kwh
 
-FROM sessions s
+    FROM sessions s
 
-LEFT JOIN session_energy_breakdown b
-ON s.id = b.session_id
+    LEFT JOIN session_energy_breakdown b
+    ON s.id = b.session_id
 
-ORDER BY s.start_time DESC
-""")
+    WHERE s.start_time >= ?
 
-rows = cur.fetchall()
+    ORDER BY s.start_time DESC
+    """,
+    (
+        dashboard_start_date,
+    )
+).fetchall()
 
 sessions = []
 
@@ -270,6 +310,6 @@ with open(
 print()
 print(
     f"docs/dashboard.json gegenereerd "
-    f"({start_date} → {end_date})"
+    f"({dashboard_start_date} → {end_date})"
 )
 print()

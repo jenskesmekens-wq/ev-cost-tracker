@@ -16,3 +16,6 @@ pricing:
 
 database:
   path: "data/charging_history.db"
+
+dashboard:
+  start_date: "2026-11-01"
