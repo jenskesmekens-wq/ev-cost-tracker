@@ -9,8 +9,8 @@
   },
   "energy_split": {
     "pv_direct": 9.88,
-    "battery_pv": 7.61,
-    "battery_grid": 13.18,
+    "battery_pv": 8.97,
+    "battery_grid": 11.82,
     "grid_direct": 118.46
   },
   "latest_session": {
@@ -161,8 +161,8 @@
       "date": "2026-10-16 16:45:17",
       "kwh": 25.76,
       "pv_direct": 0.01,
-      "battery_pv": 0.0,
-      "battery_grid": 0.06,
+      "battery_pv": 0.05,
+      "battery_grid": 0.01,
       "grid_direct": 25.69,
       "market_cost": 0,
       "actual_cost": 0,
@@ -183,8 +183,8 @@
       "date": "2026-10-15 00:00:17",
       "kwh": 19.99,
       "pv_direct": 5.18,
-      "battery_pv": 0.0,
-      "battery_grid": 2.18,
+      "battery_pv": 1.31,
+      "battery_grid": 0.87,
       "grid_direct": 12.63,
       "market_cost": 0,
       "actual_cost": 0,
