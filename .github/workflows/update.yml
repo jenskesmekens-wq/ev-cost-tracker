@@ -28,7 +28,28 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pyyaml
 
-      - name: Set secrets
+      - name: Debug repository
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo ""
+          echo "Repository root:"
+          ls -la
+
+          echo ""
+          echo "Data directory:"
+          ls -la data || true
+
+          echo ""
+          echo "Database files:"
+          find . -name "*.db"
+
+          echo ""
+          echo "Config:"
+          cat config.yaml
+
+      - name: Run updater
         env:
           ALPHAESS_EMAIL: ${{ secrets.ALPHAESS_EMAIL }}
           ALPHAESS_PASSWORD: ${{ secrets.ALPHAESS_PASSWORD }}
@@ -46,3 +67,7 @@ jobs:
           git diff --staged --quiet || git commit -m "Automatic dashboard update"
 
           git push
+
+      - name: Done
+        run: |
+          echo "Workflow completed"
