@@ -14,9 +14,21 @@ conn.row_factory = sqlite3.Row
 
 cur = conn.cursor()
 
+cur.execute("""
+SELECT
+    MIN(start_time),
+    MAX(start_time)
+FROM sessions
+""")
+
+date_row = cur.fetchone()
+
+start_date = date_row[0][:10]
+end_date = date_row[1][:10]
+
 ratios = get_daily_battery_ratios(
-    "2026-10-22",
-    "2026-10-28"
+    start_date,
+    end_date
 )
 
 cur.execute("""
@@ -204,6 +216,7 @@ dashboard = {
             total_loaded,
             4
         ) if total_loaded else 0
+
     },
 
     "energy_split": {
@@ -231,6 +244,7 @@ dashboard = {
             grid_direct_total,
             2
         )
+
     },
 
     "latest_session":
@@ -255,6 +269,7 @@ with open(
 
 print()
 print(
-    "docs/dashboard.json gegenereerd"
+    f"docs/dashboard.json gegenereerd "
+    f"({start_date} → {end_date})"
 )
 print()
