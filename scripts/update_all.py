@@ -32,6 +32,8 @@ def main():
 
     run("session_sync.py")
 
+    run("update_price_history.py")
+
     run("import_power_history_full.py")
 
     run("calculate_market_costs.py")
