@@ -8,8 +8,7 @@ from datetime import timedelta
 from alphaess_client import AlphaESSClient
 
 
-START_DATE = "2026-10-15"
-END_DATE = "2026-10-28"
+CONFIG = "config.yaml"
 
 
 def daterange(start, end):
@@ -23,128 +22,180 @@ def daterange(start, end):
         current += timedelta(days=1)
 
 
-with open(
-    "config.yaml",
-    encoding="utf-8"
-) as f:
+def load_config():
 
-    cfg = yaml.safe_load(f)
+    with open(
+        CONFIG,
+        encoding="utf-8"
+    ) as f:
+
+        return yaml.safe_load(f)
 
 
-client = AlphaESSClient(
-    cfg["alphaess"]["email"],
-    os.getenv(
-        "ALPHAESS_PASSWORD"
-    )
-)
+def get_sync_dates(conn):
 
-client.login()
+    conn.row_factory = sqlite3.Row
 
-conn = sqlite3.connect(
-    "data/charging_history.db"
-)
+    cur = conn.cursor()
 
-cur = conn.cursor()
+    cur.execute("""
+    SELECT
+        MIN(start_time)
+    FROM sessions
+    """)
 
-start_date = datetime.strptime(
-    START_DATE,
-    "%Y-%m-%d"
-)
+    row = cur.fetchone()
 
-end_date = datetime.strptime(
-    END_DATE,
-    "%Y-%m-%d"
-)
+    if not row or not row[0]:
 
-total_inserted = 0
-
-for day in daterange(
-    start_date,
-    end_date
-):
-
-    begin = (
-        day.strftime(
-            "%Y-%m-%d"
+        raise RuntimeError(
+            "Geen sessies gevonden in database."
         )
-        + "T00:00:00Z"
+
+    start_date = datetime.fromisoformat(
+        row[0].replace(" ", "T")
     )
 
-    end = (
-        day.strftime(
-            "%Y-%m-%d"
+    end_date = datetime.today()
+
+    return (
+        start_date,
+        end_date
+    )
+
+
+def main():
+
+    cfg = load_config()
+
+    client = AlphaESSClient(
+        cfg["alphaess"]["email"],
+        os.getenv(
+            "ALPHAESS_PASSWORD",
+            ""
         )
-        + "T23:59:59Z"
     )
 
+    client.login()
+
+    conn = sqlite3.connect(
+        cfg["database"]["path"]
+    )
+
+    cur = conn.cursor()
+
+    start_date, end_date = (
+        get_sync_dates(conn)
+    )
+
+    print()
     print(
-        f"Importing {day.strftime('%Y-%m-%d')}"
+        f"Synchroniseren van "
+        f"{start_date.date()} "
+        f"tot "
+        f"{end_date.date()}"
     )
+    print()
 
-    try:
+    total_inserted = 0
 
-        data = client.get_power_history(
-            begin,
-            end,
-            5
+    for day in daterange(
+        start_date,
+        end_date
+    ):
+
+        begin = (
+            day.strftime(
+                "%Y-%m-%d"
+            )
+            + "T00:00:00Z"
         )
 
-    except Exception as ex:
+        end = (
+            day.strftime(
+                "%Y-%m-%d"
+            )
+            + "T23:59:59Z"
+        )
 
         print(
-            f"FAILED: {day.strftime('%Y-%m-%d')}"
+            f"Importing "
+            f"{day.strftime('%Y-%m-%d')}"
         )
 
-        print(ex)
+        try:
 
-        continue
+            data = client.get_power_history(
+                begin,
+                end,
+                5
+            )
 
-    count = len(
-        data["ts"]
+        except Exception as ex:
+
+            print(
+                f"FAILED: "
+                f"{day.strftime('%Y-%m-%d')}"
+            )
+
+            print(ex)
+
+            continue
+
+        count = len(
+            data["ts"]
+        )
+
+        for i in range(count):
+
+            cur.execute("""
+            INSERT OR REPLACE
+            INTO power_snapshots (
+
+                timestamp,
+
+                solar_w,
+                battery_w,
+                grid_w,
+
+                ev_w,
+                load_w,
+
+                soc
+
+            )
+            VALUES (
+                ?, ?, ?, ?, ?, ?, ?
+            )
+            """,
+            (
+                data["ts"][i],
+
+                data["solar"][i],
+                data["battery"][i],
+                data["grid"][i],
+
+                data["evCharge"][i],
+
+                data["load"][i],
+
+                data["soc"][i]
+            ))
+
+            total_inserted += 1
+
+        conn.commit()
+
+    conn.close()
+
+    print()
+    print(
+        f"TOTAL SNAPSHOTS IMPORTED: "
+        f"{total_inserted}"
     )
+    print()
 
-    for i in range(count):
 
-        cur.execute("""
-        INSERT OR REPLACE INTO power_snapshots (
+if __name__ == "__main__":
 
-            timestamp,
-
-            solar_w,
-            battery_w,
-            grid_w,
-
-            ev_w,
-
-            load_w,
-
-            soc
-
-        )
-        VALUES (
-            ?, ?, ?, ?, ?, ?, ?
-        )
-        """,
-        (
-            data["ts"][i],
-
-            data["solar"][i],
-            data["battery"][i],
-            data["grid"][i],
-
-            data["evCharge"][i],
-
-            data["load"][i],
-
-            data["soc"][i]
-        ))
-
-        total_inserted += 1
-
-    conn.commit()
-
-print()
-print(
-    f"TOTAL SNAPSHOTS IMPORTED: {total_inserted}"
-)
-print()
+    main()

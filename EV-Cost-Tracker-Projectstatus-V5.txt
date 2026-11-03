@@ -1,0 +1,80 @@
+EV COST TRACKER - PROJECTSTATUS (V5)
+
+PROJECT
+- Doel: werkelijke laadkost per EV-laadsessie berekenen op basis van AlphaESS-sessies, dynamische stroomprijzen, PV, batterij en netverbruik.
+
+GITHUB
+- Repository: https://github.com/jenskesmekens-wq/ev-cost-tracker
+- Dashboard online: https://jenskesmekens-wq.github.io/ev-cost-tracker/
+
+BELANGRIJKSTE BESTAND
+- data/charging_history.db
+
+HUIDIGE STATUS
+✅ AlphaESS login
+✅ EV-laadsessies ophalen
+✅ Historische prijzen (vanaf 19/10)
+✅ Engie/Energieprijs-formule verwerkt
+✅ Marktkost per sessie
+✅ Werkelijke kost (V2-benadering)
+✅ Power snapshots import
+✅ Battery lots / FIFO basis
+✅ Session energy allocation
+✅ Dashboard V5 online via GitHub Pages
+
+DASHBOARD V5 RESULTATEN
+- Totaal geladen: 157,12 kWh
+- Marktkost: €28,39
+- Werkelijke kost: €24,17
+- Besparing: €4,22
+- Gem. werkelijke prijs: €0,1538/kWh
+
+ENERGIEVERDELING
+- Direct PV: 9,88 kWh
+- Battery PV: 7,61 kWh
+- Battery GRID: 13,18 kWh
+- Direct GRID: 118,46 kWh
+
+VOLGENDE STAP = V6
+AUTOMATISCHE SYNCHRONISATIE
+Doel: elk uur automatisch updaten zonder tussenkomst.
+
+Workflow:
+1. AlphaESS login
+2. Nieuwe laadsessies ophalen
+3. Power-data ophalen
+4. Energy-data ophalen
+5. Session allocation herberekenen
+6. Actual cost herberekenen
+7. dashboard.json genereren
+8. Git commit + push
+9. GitHub Pages automatisch verversen
+
+GitHub Secrets nodig:
+- ALPHAESS_EMAIL
+- ALPHAESS_PASSWORD
+
+VOLGENDE STAP = V7
+RAPPORTAGE
+- Maandoverzicht
+- Jaarkost
+- Goedkoopste sessie
+- Duurste sessie
+- Kost per 100 km
+- Excel export
+- PWA/app-versie
+
+NIEUWE PC CHECKLIST
+1. Python installeren
+2. Git installeren
+3. Repository clonen
+4. charging_history.db terugplaatsen
+5. pip install -r requirements.txt
+6. Dashboard testen
+
+BELANGRIJK
+Als deze notitie later aan Copilot wordt gegeven:
+- We zijn gestopt na Dashboard V5.
+- Dashboard staat online.
+- Volgende ontwikkeling moet starten bij V6 Automatische Synchronisatie.
+- charging_history.db bevat de actuele historiek en mag niet verloren gaan.
