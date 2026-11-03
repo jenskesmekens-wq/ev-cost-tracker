@@ -38,7 +38,7 @@ def main():
 
     run("calculate_market_costs.py")
 
-    run("session_energy_allocation.py")
+    run("test_session_energy_allocation.py")
 
     run("calculate_actual_cost_v2.py")
 
