@@ -1,17 +1,17 @@
 import sqlite3
-import requests
+import json
 
+from pathlib import Path
 from datetime import datetime
 
 from cost_engine import (
-    get_quarter_prices,
     calculate_session_market_price
 )
 
 
-PRICE_URL = (
-    "https://jenskesmekens-wq.github.io/"
-    "Energieprijs-v4/prices.json"
+ARCHIVE_FILE = (
+    Path("price_history") /
+    "price_archive.json"
 )
 
 
@@ -37,16 +37,29 @@ try:
 except:
     pass
 
-print("Prijzen ophalen...")
 
-price_data = requests.get(
-    PRICE_URL,
-    timeout=30
-).json()
+print("Prijsarchief laden...")
 
-price_lookup = get_quarter_prices(
-    price_data
-)
+with open(
+    ARCHIVE_FILE,
+    encoding="utf-8"
+) as f:
+
+    archive = json.load(f)
+
+
+price_lookup = {}
+
+for key, value in archive.items():
+
+    ts = datetime.fromisoformat(
+        key
+    )
+
+    price_lookup[ts] = float(
+        value
+    )
+
 
 cur.execute(
     """
@@ -61,14 +74,19 @@ cur.execute(
 
 rows = cur.fetchall()
 
+
+updated = 0
+
 for row in rows:
 
     start_time = datetime.fromisoformat(
-        row["start_time"].replace(" ", "T")
+        row["start_time"]
+        .replace(" ", "T")
     )
 
     end_time = datetime.fromisoformat(
-        row["end_time"].replace(" ", "T")
+        row["end_time"]
+        .replace(" ", "T")
     )
 
     avg_price, market_cost = (
@@ -95,10 +113,19 @@ for row in rows:
         )
     )
 
+    updated += 1
+
+
 conn.commit()
 
+print()
+
 print(
-    f"{len(rows)} sessies berekend."
+    f"{updated} sessies berekend."
 )
 
-print("Klaar.")
+print(
+    "Market costs bijgewerkt."
+)
+
+print()

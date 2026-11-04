@@ -87,7 +87,8 @@ def main():
     )
     """)
 
-    newcount = 0
+    inserted_count = 0
+    updated_count = 0
 
     for s in sessions:
 
@@ -101,36 +102,93 @@ def main():
 
         c.execute(
             """
-            INSERT OR IGNORE INTO sessions (
-                start_time,
+            SELECT
                 end_time,
                 kwh
-            )
-            VALUES (
-                ?, ?, ?
-            )
+            FROM sessions
+            WHERE start_time = ?
             """,
             (
                 s["beginDate"],
-                s["endDate"],
-                s["chargingCapacity"]
             )
         )
 
-        if c.rowcount:
-            newcount += 1
+        existing = c.fetchone()
+
+        if existing is None:
+
+            c.execute(
+                """
+                INSERT INTO sessions (
+
+                    start_time,
+                    end_time,
+                    kwh
+
+                )
+                VALUES (
+
+                    ?, ?, ?
+
+                )
+                """,
+                (
+                    s["beginDate"],
+                    s["endDate"],
+                    s["chargingCapacity"]
+                )
+            )
+
+            inserted_count += 1
+
+        else:
+
+            old_end_time = existing[0]
+            old_kwh = existing[1]
+
+            new_end_time = s["endDate"]
+            new_kwh = s["chargingCapacity"]
+
+            if (
+                old_end_time != new_end_time
+                or
+                old_kwh != new_kwh
+            ):
+
+                c.execute(
+                    """
+                    UPDATE sessions
+                    SET
+
+                        end_time = ?,
+                        kwh = ?
+
+                    WHERE start_time = ?
+                    """,
+                    (
+                        new_end_time,
+                        new_kwh,
+                        s["beginDate"]
+                    )
+                )
+
+                updated_count += 1
 
     conn.commit()
 
+    print()
     print(
-        f"Sessies opgehaald: "
-        f"{len(sessions)}"
+        f"Sessies opgehaald: {len(sessions)}"
     )
 
     print(
-        f"Nieuwe sessies: "
-        f"{newcount}"
+        f"Nieuwe sessies: {inserted_count}"
     )
+
+    print(
+        f"Bijgewerkte sessies: {updated_count}"
+    )
+    print()
 
 
 if __name__ == "__main__":

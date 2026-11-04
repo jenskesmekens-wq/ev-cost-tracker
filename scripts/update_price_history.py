@@ -2,7 +2,7 @@ import json
 import requests
 
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 PRICE_URL = (
@@ -32,14 +32,26 @@ def save_day(day_name, day_data):
     if not items:
         return
 
-    day_string = (
-        datetime.fromisoformat(
-            items[0]["timestamp"]
-            .replace("Z", "+00:00")
+    today = datetime.now().date()
+
+    if day_name == "today":
+
+        day_string = (
+            today.isoformat()
         )
-        .date()
-        .isoformat()
-    )
+
+    elif day_name == "tomorrow":
+
+        day_string = (
+            (
+                today +
+                timedelta(days=1)
+            ).isoformat()
+        )
+
+    else:
+
+        return
 
     file_path = (
         PRICE_HISTORY /
@@ -60,20 +72,27 @@ def save_day(day_name, day_data):
         )
 
     print(
-        f"Opgeslagen: {file_path}"
+        f"Opgeslagen: "
+        f"{file_path}"
     )
 
 
 def main():
 
     print()
-    print("Prijzen ophalen...")
+    print(
+        "Prijzen ophalen..."
+    )
     print()
 
-    data = requests.get(
+    response = requests.get(
         PRICE_URL,
         timeout=30
-    ).json()
+    )
+
+    response.raise_for_status()
+
+    data = response.json()
 
     save_day(
         "today",
