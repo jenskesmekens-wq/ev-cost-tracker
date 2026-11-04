@@ -64,6 +64,26 @@ def get_sync_dates(conn):
     )
 
 
+def valid_power_response(data):
+
+    if not data:
+        return False
+
+    if not isinstance(
+        data,
+        dict
+    ):
+        return False
+
+    if "ts" not in data:
+        return False
+
+    if not data["ts"]:
+        return False
+
+    return True
+
+
 def main():
 
     cfg = load_config()
@@ -142,6 +162,18 @@ def main():
 
             continue
 
+        if not valid_power_response(
+            data
+        ):
+
+            print(
+                f"Geen geldige power history "
+                f"voor "
+                f"{day.strftime('%Y-%m-%d')}"
+            )
+
+            continue
+
         count = len(
             data["ts"]
         )
@@ -171,15 +203,35 @@ def main():
             (
                 data["ts"][i],
 
-                data["solar"][i],
-                data["battery"][i],
-                data["grid"][i],
+                data.get(
+                    "solar",
+                    []
+                )[i],
 
-                data["evCharge"][i],
+                data.get(
+                    "battery",
+                    []
+                )[i],
 
-                data["load"][i],
+                data.get(
+                    "grid",
+                    []
+                )[i],
 
-                data["soc"][i]
+                data.get(
+                    "evCharge",
+                    []
+                )[i],
+
+                data.get(
+                    "load",
+                    []
+                )[i],
+
+                data.get(
+                    "soc",
+                    []
+                )[i]
             ))
 
             total_inserted += 1
