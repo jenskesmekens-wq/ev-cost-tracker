@@ -42,9 +42,32 @@ class AlphaESSClient:
 
         r.raise_for_status()
 
-        self.token = (
-            r.json()["accessToken"]
-        )
+        if not r.text.strip():
+
+            raise RuntimeError(
+                "Lege login response van AlphaESS."
+            )
+
+        try:
+
+            data = r.json()
+
+        except Exception:
+
+            raise RuntimeError(
+                f"Ongeldige login response "
+                f"van AlphaESS:\n\n"
+                f"{r.text[:500]}"
+            )
+
+        if "accessToken" not in data:
+
+            raise RuntimeError(
+                f"Geen accessToken ontvangen:\n\n"
+                f"{data}"
+            )
+
+        self.token = data["accessToken"]
 
         return self.token
 
@@ -75,7 +98,34 @@ class AlphaESSClient:
 
         r.raise_for_status()
 
-        data = r.json()
+        if not r.text.strip():
+
+            print()
+            print(
+                "Waarschuwing: lege "
+                "charging sessions response."
+            )
+            print()
+
+            return []
+
+        try:
+
+            data = r.json()
+
+        except Exception:
+
+            print()
+            print(
+                "Waarschuwing: ongeldige "
+                "charging sessions JSON."
+            )
+            print(
+                r.text[:500]
+            )
+            print()
+
+            return []
 
         return data.get(
             "list",
@@ -90,7 +140,7 @@ class AlphaESSClient:
     ):
 
         url = (
-            f"https://platform-eur.alphaess.com"
+            "https://platform-eur.alphaess.com"
             f"/api/internal/v1/sites/"
             f"{SITE_ID}/power"
         )
@@ -113,4 +163,31 @@ class AlphaESSClient:
 
         r.raise_for_status()
 
-        return r.json()
+        if not r.text.strip():
+
+            print()
+            print(
+                "Waarschuwing: lege "
+                "power history response."
+            )
+            print()
+
+            return {}
+
+        try:
+
+            return r.json()
+
+        except Exception:
+
+            print()
+            print(
+                "Waarschuwing: ongeldige "
+                "power history JSON."
+            )
+            print(
+                r.text[:500]
+            )
+            print()
+
+            return {}
