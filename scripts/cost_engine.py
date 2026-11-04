@@ -14,7 +14,7 @@ def engie_total_price(market_price):
 
     spot_mwh = market_price * 1000
 
-    b = 6.714
+    b = 0.7134
     m = 0.1039
 
     vat = 1.06
