@@ -106,7 +106,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -118,7 +118,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -130,7 +130,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -142,7 +142,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -154,7 +154,7 @@
       "day": "today",
       "hour": 3,
       "hour_label": "03:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -166,7 +166,7 @@
       "day": "today",
       "hour": 3,
       "hour_label": "03:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -178,7 +178,7 @@
       "day": "today",
       "hour": 3,
       "hour_label": "03:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -190,7 +190,7 @@
       "day": "today",
       "hour": 3,
       "hour_label": "03:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "peak"
     },
@@ -1164,5 +1164,5 @@
     },
     "tomorrow": null
   },
-  "fetched_at": "2026-11-04T01:10:06.426Z"
+  "fetched_at": "2026-11-04T02:05:53.400Z"
 }
