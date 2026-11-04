@@ -45,19 +45,79 @@ def get_daily_battery_ratios(
 
     r.raise_for_status()
 
-    data = r.json()
+    if not r.text.strip():
+
+        print()
+        print(
+            "Waarschuwing: lege response "
+            "van AlphaESS energy endpoint."
+        )
+        print(
+            "Fallback naar 100% grid."
+        )
+        print()
+
+        return {}
+
+    try:
+
+        data = r.json()
+
+    except Exception:
+
+        print()
+        print(
+            "Waarschuwing: ongeldige JSON "
+            "van AlphaESS energy endpoint."
+        )
+        print(
+            "Fallback naar 100% grid."
+        )
+        print()
+
+        return {}
+
+    if not data:
+
+        print()
+        print(
+            "Waarschuwing: lege data "
+            "van AlphaESS energy endpoint."
+        )
+        print(
+            "Fallback naar 100% grid."
+        )
+        print()
+
+        return {}
+
+    try:
+
+        days = data["ts"]
+
+        pv_to_battery = (
+            data["selfGeneration"]["battery"]
+        )
+
+        grid_to_battery = (
+            data["grid"]["battery"]
+        )
+
+    except Exception:
+
+        print()
+        print(
+            "Waarschuwing: onverwachte "
+            "AlphaESS response structuur."
+        )
+        print(
+            "Fallback naar 100% grid."
+        )
+        print()
+
+        return {}
 
     ratios = {}
-
-    days = data["ts"]
-
-    pv_to_battery = (
-        data["selfGeneration"]["battery"]
-    )
-
-    grid_to_battery = (
-        data["grid"]["battery"]
-    )
 
     for i in range(
         len(days)
