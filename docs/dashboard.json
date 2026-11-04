@@ -1,11 +1,11 @@
 {
   "summary": {
     "total_loaded": 12.41,
-    "market_cost": 0,
-    "actual_cost": 0,
-    "total_savings": 0,
-    "avg_market_price": 0.0,
-    "avg_actual_price": 0.0
+    "market_cost": 4.44,
+    "actual_cost": 4.29,
+    "total_savings": 0.15,
+    "avg_market_price": 0.3578,
+    "avg_actual_price": 0.3457
   },
   "energy_split": {
     "pv_direct": 0,
@@ -20,9 +20,9 @@
     "battery_pv": 0.36,
     "battery_grid": 1.68,
     "grid_direct": 8.7,
-    "market_cost": 0,
-    "actual_cost": 0,
-    "savings": 0
+    "market_cost": 4.44,
+    "actual_cost": 4.29,
+    "savings": 0.15
   },
   "sessions": [
     {
@@ -32,9 +32,9 @@
       "battery_pv": 0.36,
       "battery_grid": 1.68,
       "grid_direct": 8.7,
-      "market_cost": 0,
-      "actual_cost": 0,
-      "savings": 0
+      "market_cost": 4.44,
+      "actual_cost": 4.29,
+      "savings": 0.15
     },
     {
       "date": "2026-11-02 23:35:57",
