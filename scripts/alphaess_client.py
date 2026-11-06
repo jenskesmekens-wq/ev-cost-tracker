@@ -39,6 +39,14 @@ class AlphaESSClient:
             json=payload,
             timeout=30
         )
+	
+        print()
+        print("STATUS:", r.status_code)
+        print()
+        print("RESPONSE:")
+        print(r.text)
+        print()
+
 
         r.raise_for_status()
 

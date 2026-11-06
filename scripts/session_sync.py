@@ -6,7 +6,6 @@ import yaml
 import os
 
 from alphaess_client import AlphaESSClient
-from logger import logger
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -56,6 +55,18 @@ def main():
         ""
     )
 
+    print()
+    print(
+        f"Email: {email}"
+    )
+    print(
+        f"Password gevuld: {bool(password)}"
+    )
+    print(
+        f"Password lengte: {len(password)}"
+    )
+    print()
+
     client = AlphaESSClient(
         email,
         password
@@ -83,7 +94,6 @@ def main():
         end_time TEXT,
 
         kwh REAL
-
     )
     """)
 
@@ -127,9 +137,7 @@ def main():
 
                 )
                 VALUES (
-
                     ?, ?, ?
-
                 )
                 """,
                 (
@@ -159,10 +167,8 @@ def main():
                     """
                     UPDATE sessions
                     SET
-
                         end_time = ?,
                         kwh = ?
-
                     WHERE start_time = ?
                     """,
                     (
@@ -180,11 +186,9 @@ def main():
     print(
         f"Sessies opgehaald: {len(sessions)}"
     )
-
     print(
         f"Nieuwe sessies: {inserted_count}"
     )
-
     print(
         f"Bijgewerkte sessies: {updated_count}"
     )
