@@ -19,7 +19,6 @@ dashboard_start_date = (
     cfg["dashboard"]["start_date"]
 )
 
-
 conn = sqlite3.connect(
     "data/charging_history.db"
 )
@@ -211,7 +210,23 @@ for row in rows:
         round(
             row["savings"] or 0,
             2
+        ),
+
+        "avg_cost_per_kwh":
+        round(
+            (
+                (row["actual_cost"] or 0)
+                /
+                (row["kwh"] or 1)
+            ),
+            4
         )
+        if (
+            row["actual_cost"]
+            and
+            row["kwh"]
+        )
+        else 0
 
     })
 

@@ -222,6 +222,7 @@ async function load(){
                 <td>€${s.market_cost}</td>
                 <td>€${s.actual_cost}</td>
                 <td>€${s.savings}</td>
+                <td>€${s.avg_cost_per_kwh}</td>
             </tr>
             `;
         }
