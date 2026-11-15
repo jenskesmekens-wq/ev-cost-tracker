@@ -1,31 +1,43 @@
 {
   "summary": {
-    "total_loaded": 139.12,
-    "market_cost": 48.95,
-    "actual_cost": 46.23,
-    "total_savings": 2.72,
-    "avg_market_price": 0.3519,
-    "avg_actual_price": 0.3323
+    "total_loaded": 159.6,
+    "market_cost": 54.05,
+    "actual_cost": 50.98,
+    "total_savings": 3.07,
+    "avg_market_price": 0.3387,
+    "avg_actual_price": 0.3194
   },
   "energy_split": {
-    "pv_direct": 1.06,
-    "battery_pv": 6.81,
-    "battery_grid": 23.16,
-    "grid_direct": 108.09
+    "pv_direct": 2.33,
+    "battery_pv": 6.95,
+    "battery_grid": 24.77,
+    "grid_direct": 125.54
   },
   "latest_session": {
-    "date": "2026-11-14 03:46:09",
-    "kwh": 11.15,
-    "pv_direct": 0.25,
-    "battery_pv": 1.94,
-    "battery_grid": 3.64,
-    "grid_direct": 5.33,
-    "market_cost": 3.76,
-    "actual_cost": 3.02,
-    "savings": 0.74,
-    "avg_cost_per_kwh": 0.2709
+    "date": "2026-11-15 10:31:09",
+    "kwh": 20.48,
+    "pv_direct": 1.27,
+    "battery_pv": 0.15,
+    "battery_grid": 1.6,
+    "grid_direct": 17.46,
+    "market_cost": 5.1,
+    "actual_cost": 4.75,
+    "savings": 0.35,
+    "avg_cost_per_kwh": 0.2319
   },
   "sessions": [
+    {
+      "date": "2026-11-15 10:31:09",
+      "kwh": 20.48,
+      "pv_direct": 1.27,
+      "battery_pv": 0.15,
+      "battery_grid": 1.6,
+      "grid_direct": 17.46,
+      "market_cost": 5.1,
+      "actual_cost": 4.75,
+      "savings": 0.35,
+      "avg_cost_per_kwh": 0.2319
+    },
     {
       "date": "2026-11-14 03:46:09",
       "kwh": 11.15,
