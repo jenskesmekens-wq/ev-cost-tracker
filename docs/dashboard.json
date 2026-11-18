@@ -27,15 +27,15 @@
   },
   "monthly_summary": {
     "2026-11": {
-      "total_kwh": 139.12,
-      "market_cost": 48.95,
-      "actual_cost": 46.23,
-      "savings": 2.72,
-      "pv_direct": 1.07,
-      "battery_pv": 6.82,
-      "battery_grid": 23.17,
-      "grid_direct": 108.1,
-      "avg_cost_per_kwh": 0.33
+      "total_kwh": 180.17,
+      "market_cost": 60.08,
+      "actual_cost": 56.76,
+      "savings": 3.32,
+      "pv_direct": 2.34,
+      "battery_pv": 7.83,
+      "battery_grid": 27.74,
+      "grid_direct": 142.29,
+      "avg_cost_per_kwh": 0.32
     }
   },
   "sessions": [
