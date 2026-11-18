@@ -1,12 +1,12 @@
 async function load() {
 
-    const response =
+    const res =
         await fetch(
             "dashboard.json"
         );
 
     const data =
-        await response.json();
+        await res.json();
 
     initTabs();
 
@@ -73,11 +73,9 @@ function buildDashboard(
     data
 ) {
 
-    document
-        .getElementById(
-            "summary"
-        )
-        .innerHTML = `
+    document.getElementById(
+        "summary"
+    ).innerHTML = `
 
 <div class="card">
 <div>Totaal geladen</div>
@@ -118,11 +116,9 @@ ${data.summary.total_loaded}
     const latest =
         data.latest_session;
 
-    document
-        .getElementById(
-            "latest"
-        )
-        .innerHTML = `
+    document.getElementById(
+        "latest"
+    ).innerHTML = `
 
 <div class="card">
 
@@ -158,36 +154,36 @@ ${latest.grid_direct} kWh<br><br>
 </div>
 `;
 
-    const energy =
+    const e =
         data.energy_split;
 
-    document
-        .getElementById(
-            "energy"
-        )
-        .innerHTML = `
+    document.getElementById(
+        "energy"
+    ).innerHTML = `
 
 <div class="card">
 
 <h3>Energieverdeling</h3>
 
+<p>
 🟢 Direct PV:
-${energy.pv_direct} kWh
+${e.pv_direct} kWh
+</p>
 
-<br><br>
-
+<p>
 🟩 Battery PV:
-${energy.battery_pv} kWh
+${e.battery_pv} kWh
+</p>
 
-<br><br>
-
+<p>
 🟠 Battery GRID:
-${energy.battery_grid} kWh
+${e.battery_grid} kWh
+</p>
 
-<br><br>
-
+<p>
 🔴 Direct GRID:
-${energy.grid_direct} kWh
+${e.grid_direct} kWh
+</p>
 
 </div>
 `;
@@ -233,7 +229,6 @@ function buildHistory(
 </td>
 
 </tr>
-
 `;
         }
     );
@@ -244,14 +239,14 @@ function buildMonthlyOverview(
     data
 ) {
 
-    const container =
-        document.getElementById(
-            "monthly-summary"
-        );
-
     const selector =
         document.getElementById(
             "month-select"
+        );
+
+    const container =
+        document.getElementById(
+            "monthly-summary"
         );
 
     selector.innerHTML = "";
@@ -267,11 +262,9 @@ function buildMonthlyOverview(
         month => {
 
             selector.innerHTML += `
-
 <option value="${month}">
 ${month}
 </option>
-
 `;
         }
     );
@@ -294,7 +287,7 @@ ${month}
 </h3>
 
 <p>
-⚡ Geladen:
+⚡ Totaal geladen:
 ${m.total_kwh} kWh
 </p>
 
@@ -352,10 +345,12 @@ ${m.grid_direct} kWh
 
     selector.addEventListener(
         "change",
-        () =>
-        renderMonth(
-            selector.value
-        )
+        () => {
+
+            renderMonth(
+                selector.value
+            );
+        }
     );
 
     if (
