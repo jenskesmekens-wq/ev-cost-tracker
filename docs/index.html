@@ -19,41 +19,122 @@ content="width=device-width,initial-scale=1">
 
 <h1>EV Cost Tracker</h1>
 
+<nav class="tabs">
+
+<button
+class="tab active"
+data-page="dashboard-page">
+
+🏠 Dashboard
+
+</button>
+
+<button
+class="tab"
+data-page="monthly-page">
+
+📊 Maandoverzicht
+
+</button>
+
+<button
+class="tab"
+data-page="history-page">
+
+📜 Historiek
+
+</button>
+
+</nav>
+
+<div
+id="dashboard-page"
+class="page active">
+
 <div id="summary" class="cards"></div>
 
 <div class="main-grid">
 
-    <div>
+<div>
 
-        <h2>Laatste laadsessie</h2>
+<h2>
+Laatste laadsessie
+</h2>
 
-        <div id="latest"></div>
-
-    </div>
-
-    <div>
-
-        <h2>Energieverdeling</h2>
-
-        <div id="energy"></div>
-
-    </div>
+<div id="latest"></div>
 
 </div>
 
-<h2>Historiek</h2>
+<div>
+
+<h2>
+Energieverdeling
+</h2>
+
+<div id="energy"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+id="monthly-page"
+class="page">
+
+<h2>
+📊 Maandoverzicht
+</h2>
+
+<div class="card">
+
+<label for="month-select">
+
+Maand:
+
+</label>
+
+<select
+id="month-select">
+
+</select>
+
+</div>
+
+<div
+id="monthly-summary">
+
+</div>
+
+</div>
+
+<div
+id="history-page"
+class="page">
+
+<h2>
+📜 Historiek
+</h2>
 
 <table id="history">
 
 <thead>
 
 <tr>
+
 <th>Datum</th>
+
 <th>kWh</th>
+
 <th>Marktkost</th>
+
 <th>Werkelijke kost</th>
+
 <th>Besparing</th>
+
 <th>Gem. kost per kWh</th>
+
 </tr>
 
 </thead>
@@ -61,6 +142,8 @@ content="width=device-width,initial-scale=1">
 <tbody></tbody>
 
 </table>
+
+</div>
 
 <script src="app.js"></script>
 

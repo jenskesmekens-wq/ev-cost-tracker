@@ -230,6 +230,94 @@ for row in rows:
 
     })
 
+monthly_summary = {}
+
+for session in sessions:
+
+    month = session["date"][:7]
+
+    if month not in monthly_summary:
+
+        monthly_summary[month] = {
+
+            "total_kwh": 0,
+
+            "market_cost": 0,
+
+            "actual_cost": 0,
+
+            "savings": 0,
+
+            "pv_direct": 0,
+
+            "battery_pv": 0,
+
+            "battery_grid": 0,
+
+            "grid_direct": 0
+        }
+
+    monthly_summary[month]["total_kwh"] += (
+        session["kwh"]
+    )
+
+    monthly_summary[month]["market_cost"] += (
+        session["market_cost"]
+    )
+
+    monthly_summary[month]["actual_cost"] += (
+        session["actual_cost"]
+    )
+
+    monthly_summary[month]["savings"] += (
+        session["savings"]
+    )
+
+    monthly_summary[month]["pv_direct"] += (
+        session["pv_direct"]
+    )
+
+    monthly_summary[month]["battery_pv"] += (
+        session["battery_pv"]
+    )
+
+    monthly_summary[month]["battery_grid"] += (
+        session["battery_grid"]
+    )
+
+    monthly_summary[month]["grid_direct"] += (
+        session["grid_direct"]
+    )
+
+for month in monthly_summary:
+
+    data = monthly_summary[month]
+
+    if data["total_kwh"] > 0:
+
+        data["avg_cost_per_kwh"] = round(
+            data["actual_cost"]
+            /
+            data["total_kwh"],
+            4
+        )
+
+    else:
+
+        data["avg_cost_per_kwh"] = 0
+
+    for key in data:
+
+        if isinstance(
+            data[key],
+            float
+        ):
+
+            data[key] = round(
+                data[key],
+                2
+            )
+
 dashboard = {
 
     "summary": {
@@ -304,6 +392,9 @@ dashboard = {
 
     "latest_session":
     sessions[0] if sessions else {},
+
+    "monthly_summary":
+    monthly_summary,
 
     "sessions":
     sessions
