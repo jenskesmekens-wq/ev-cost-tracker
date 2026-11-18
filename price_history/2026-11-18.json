@@ -58,7 +58,7 @@
       "day": "today",
       "hour": 1,
       "hour_label": "01:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -70,7 +70,7 @@
       "day": "today",
       "hour": 1,
       "hour_label": "01:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -82,7 +82,7 @@
       "day": "today",
       "hour": 1,
       "hour_label": "01:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -94,7 +94,7 @@
       "day": "today",
       "hour": 1,
       "hour_label": "01:00",
-      "is_current": true,
+      "is_current": false,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -106,7 +106,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -118,7 +118,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -130,7 +130,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -142,7 +142,7 @@
       "day": "today",
       "hour": 2,
       "hour_label": "02:00",
-      "is_current": false,
+      "is_current": true,
       "is_negative": false,
       "price_category": "cheap"
     },
@@ -1164,5 +1164,5 @@
     },
     "tomorrow": null
   },
-  "fetched_at": "2026-11-18T00:31:23.361Z"
+  "fetched_at": "2026-11-18T01:57:20.650Z"
 }
