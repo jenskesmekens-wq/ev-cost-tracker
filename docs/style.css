@@ -189,3 +189,45 @@ tr:nth-child(even){
         font-size:12px;
     }
 }
+
+/* ===== Donutdiagrammen ===== */
+
+.donut-container{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    justify-content:center;
+
+    margin-top:20px;
+}
+
+.donut-card{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+
+    text-align:center;
+
+    min-width:280px;
+}
+
+.donut-card svg{
+
+    display:block;
+
+    margin:auto;
+}
+
+.energy-line{
+
+    margin:8px 0;
+}
