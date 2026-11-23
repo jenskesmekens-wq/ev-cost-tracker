@@ -1,44 +1,56 @@
 {
   "summary": {
-    "total_loaded": 228.95,
-    "market_cost": 72.09,
-    "actual_cost": 68.52,
-    "total_savings": 3.57,
-    "avg_market_price": 0.3149,
-    "avg_actual_price": 0.2993
+    "total_loaded": 242.05,
+    "market_cost": 75.84,
+    "actual_cost": 71.71,
+    "total_savings": 4.13,
+    "avg_market_price": 0.3133,
+    "avg_actual_price": 0.2963
   },
   "energy_split": {
-    "pv_direct": 2.33,
-    "battery_pv": 9.08,
-    "battery_grid": 41.1,
-    "grid_direct": 176.44
+    "pv_direct": 3.89,
+    "battery_pv": 9.49,
+    "battery_grid": 42.12,
+    "grid_direct": 186.55
   },
   "latest_session": {
-    "date": "2026-11-20 00:06:09",
-    "kwh": 24.24,
-    "pv_direct": 0,
-    "battery_pv": 0.0,
-    "battery_grid": 9.13,
-    "grid_direct": 15.11,
-    "market_cost": 7.17,
-    "actual_cost": 7.17,
-    "savings": 0,
-    "avg_cost_per_kwh": 0.2958
+    "date": "2026-11-22 09:45:50",
+    "kwh": 13.1,
+    "pv_direct": 1.55,
+    "battery_pv": 0.41,
+    "battery_grid": 1.02,
+    "grid_direct": 10.11,
+    "market_cost": 3.75,
+    "actual_cost": 3.19,
+    "savings": 0.56,
+    "avg_cost_per_kwh": 0.2435
   },
   "monthly_summary": {
     "2026-11": {
-      "total_kwh": 228.95,
-      "market_cost": 72.09,
-      "actual_cost": 68.52,
-      "savings": 3.57,
-      "pv_direct": 2.34,
-      "battery_pv": 9.09,
-      "battery_grid": 41.1,
-      "grid_direct": 176.45,
+      "total_kwh": 242.05,
+      "market_cost": 75.84,
+      "actual_cost": 71.71,
+      "savings": 4.13,
+      "pv_direct": 3.89,
+      "battery_pv": 9.5,
+      "battery_grid": 42.12,
+      "grid_direct": 186.56,
       "avg_cost_per_kwh": 0.3
     }
   },
   "sessions": [
+    {
+      "date": "2026-11-22 09:45:50",
+      "kwh": 13.1,
+      "pv_direct": 1.55,
+      "battery_pv": 0.41,
+      "battery_grid": 1.02,
+      "grid_direct": 10.11,
+      "market_cost": 3.75,
+      "actual_cost": 3.19,
+      "savings": 0.56,
+      "avg_cost_per_kwh": 0.2435
+    },
     {
       "date": "2026-11-20 00:06:09",
       "kwh": 24.24,
